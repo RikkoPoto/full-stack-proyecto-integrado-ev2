@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+/* ---------- Tokens de color (paleta original del proyecto) ---------- */
+:root {
+  --bg: #F3F5F8; --surface: #FFFFFF; --ink: #121A2B; --mute: #566277; --line: #D6DCE6; --neutral: #E8ECF2;
+  --accent: #1747C9; --accent-ink: #FFFFFF; --accent-soft: #E3EAFB;
+  --ok: #17703F; --ok-soft: #DDF1E5; --warn: #8A5A00; --warn-soft: #FAEDCC; --bad: #A82A21; --bad-soft: #FAE1DE;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1420; --surface: #161E2D; --ink: #E8EDF6; --mute: #9AA6BA; --line: #2A3448; --neutral: #222C3F;
+    --accent: #7EA2FF; --accent-ink: #0B1226; --accent-soft: #1B2A52;
+    --ok: #5BD08B; --ok-soft: #14301F; --warn: #E7B84F; --warn-soft: #33270B; --bad: #FF8B80; --bad-soft: #3A1816;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1420; --surface: #161E2D; --ink: #E8EDF6; --mute: #9AA6BA; --line: #2A3448; --neutral: #222C3F;
+  --accent: #7EA2FF; --accent-ink: #0B1226; --accent-soft: #1B2A52;
+  --ok: #5BD08B; --ok-soft: #14301F; --warn: #E7B84F; --warn-soft: #33270B; --bad: #FF8B80; --bad-soft: #3A1816;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-neutral: var(--neutral);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --font-display: "Schibsted Grotesk Variable", system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-bg font-sans text-[15px] leading-relaxed text-ink antialiased;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  main:focus { outline: none; }
+  ::selection { background: var(--accent-soft); }
+}
+
+@layer components {
+  .navlink { @apply whitespace-nowrap border-b-2 border-transparent px-3 py-2.5 text-sm font-medium text-mute transition-colors hover:text-ink aria-[current=page]:border-accent aria-[current=page]:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply bg-accent text-accent-ink hover:opacity-90; }
+  .btn-ghost { @apply border border-line bg-surface text-ink hover:bg-neutral; }
+  .btn-danger { @apply bg-bad text-accent-ink hover:opacity-90; }
+  .btn-sm { @apply px-3 py-1.5 text-xs; }
+  .chip { @apply inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded px-2 py-0.5 text-xs font-semibold; }
+  .chip-C { @apply bg-ok-soft text-ok; }
+  .chip-P { @apply bg-warn-soft text-warn; }
+  .chip-N { @apply bg-bad-soft text-bad; }
+  .chip-E { @apply bg-neutral text-mute; }
+  .chip-A { @apply bg-accent-soft text-accent; }
+  .panel { @apply rounded-md border border-line bg-surface; }
+  .eyebrow { @apply font-mono text-xs uppercase tracking-wider text-mute; }
+  .field { @apply rounded-md border border-line bg-bg px-3 py-2.5 text-sm text-ink placeholder:text-mute focus:outline-none focus-visible:ring-2 focus-visible:ring-accent; }
+  .skeleton { @apply animate-pulse rounded bg-neutral motion-reduce:animate-none; }
+}
+
+.theme-switching *, .theme-switching *::before, .theme-switching *::after { transition: none !important; }
+
+@media print {
+  @page { margin: 14mm; }
+  body { background: #fff; color: #000; padding: 0; }
+  .panel { break-inside: avoid; }
+  details { break-inside: avoid; }
+}

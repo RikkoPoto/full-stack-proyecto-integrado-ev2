@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: verificador_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  backend:
+    build: ./backend_django
+    environment:
+      DEBUG: "False"
+      SECRET_KEY: "produccion-admi-ley21719-secret-key"
+      ALLOWED_HOSTS: "*"
+      DB_ENGINE: "postgresql"
+      DB_NAME: "verificador_db"
+      DB_USER: "postgres"
+      DB_PASSWORD: "postgres_password"
+      DB_HOST: "db"
+      DB_PORT: "5432"
+      SCAN_USE_PLAYWRIGHT: "True"
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  frontend:
+    build: ./verificador_frontend
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

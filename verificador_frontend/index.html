@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Verificación automática del cumplimiento de la Ley N.º 21.719 en sitios web." />
+    <title>Verificador 2.0</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      // Aplica el tema guardado antes de pintar para evitar parpadeos.
+      try {
+        var t = localStorage.getItem('verificador.theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>Esta aplicación necesita JavaScript para funcionar.</noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
