@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "backend_django": {
+      "root": "backend_django",
+      "framework": "django"
+    },
+    "verificador_frontend": {
+      "root": "verificador_frontend",
+      "framework": "vite"
+    }
+  },
+  "rewrites": []
+}
